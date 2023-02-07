@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  workspace:
+    env_file: .env
+    environment:
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+      - no_proxy=${no_proxy}
+    build:
+      context: ../ci/docker
+      dockerfile: Dockerfile
+      args:
+        - HttpsProxyHost=${HttpsProxyHost}
+        - HttpsProxyPort=${HttpsProxyPort}
+        - HttpProxyHost=${HttpProxyHost}
+        - HttpProxyPort=${HttpProxyPort}
+    volumes:
+      - ..:/workspace:cached
+      - /tmp:/tmp/delegated
+      - /tmp/sccache:/root/.cache/sccache:delegated
+      - "$HOME/.Xauthority:/root/.Xauthority:ro"
+      - /tmp/.Xauthority:/tmp/.Xauthority:ro
+      - "$HOME/.ssh:/root/.ssh:ro"
+      - "$HOME/.gitconfig:/root/.gitconfig:ro"
+      # - "$HOME/.vscode-server:/root/.vscode-server:ro"
+      # - /mnt/DP_nvme1/container-manager/m2:/root/.m2
+    network_mode: host
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    init: true
+    restart: unless-stopped
+
+# networks:
+#   '1':
+#     driver: host
+
+# volumes:
+#   '1':
+#     name: '23'
+#     driver: local

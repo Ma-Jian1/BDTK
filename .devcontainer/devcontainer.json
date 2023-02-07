@@ -1,0 +1,47 @@
+{
+    "name": "${localWorkspaceFolderBasename}",
+    "privileged": true,
+    // "containerEnv": {},
+    "remoteEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "dotfiles.repository": "https://github.com/ensonmj/dotfiles",
+                "dotfiles.targetPath": "~/.dotfiles",
+                // "dotfiles.installCommand": "~/dotfiles/install.sh",
+                "http.proxySupport": "on"
+                // "java.project.resourceFilters": [
+                //     "node_modules",
+                //     ".git",
+                //     "velox-plugin",
+                //     "/workspace/code/presto/presto-native-execution/velox-plugin"
+                // ],
+                // "java.format.enabled": false,
+                // "xml.format.enabled": false
+            },
+            "extensions": [
+                "MS-CEINTL.vscode-language-pack-zh-hans",
+                "mutantdino.resourcemonitor",
+                "streetsidesoftware.code-spell-checker",
+                "ryu1kn.partial-diff",
+                "yzhang.markdown-all-in-one",
+                "ms-azuretools.vscode-docker",
+                "eamodio.gitlens",
+                "mhutchie.git-graph",
+                "GitHub.vscode-pull-request-github",
+                "ms-vscode.cpptools",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "xaver.clang-format"
+            ]
+        }
+    },
+    "dockerComposeFile": [
+        // The order of the files is important since later files override previous ones
+        "./compose.workspace.yaml"
+    ],
+    "service": "workspace",
+    "workspaceFolder": "/workspace",
+    "onCreateCommand": "bash install.sh"
+}
